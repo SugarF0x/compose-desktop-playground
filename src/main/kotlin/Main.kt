@@ -1,13 +1,11 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -35,6 +33,9 @@ fun TodoItem(text: String, onRemove: () -> Unit) {
 @Composable
 @Preview
 fun App() {
+  val items = remember { mutableStateListOf("Laundry", "Dishes", "Groceries") }
+  var input by remember { mutableStateOf("") }
+
   MaterialTheme {
     Box(
       modifier = Modifier
@@ -51,7 +52,23 @@ fun App() {
           style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold)
         )
 
-        TodoItem("Laundry", {})
+        items.forEachIndexed { index, item -> TodoItem(item) { items.removeAt(index) } }
+
+        TextField(
+          value = input,
+          onValueChange = { value -> run {
+            if (value.last().toString() != "\n") {
+              input = value
+              return@TextField
+            }
+
+            if (input == "") return@TextField
+
+            items.add(input)
+            input = ""
+          } },
+          label = { Text("Enter new TODO") }
+        )
       }
     }
   }
