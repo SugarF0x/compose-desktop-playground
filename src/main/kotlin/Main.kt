@@ -8,13 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpSize
@@ -46,26 +41,23 @@ fun App() {
         .padding(16.dp)
     ) {
       Column(
-        modifier = Modifier
-          .fillMaxSize()
-          .align(Alignment.TopCenter),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
         Text(
           text = "TODO List App",
-          style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
-          color = Color.Black
+          style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold)
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         Row(
           modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.SpaceBetween
+          horizontalArrangement = Arrangement.Center
         ) {
-          MyButton(text = "Button 1", icon = Icons.Default.Check)
-          MyButton(text = "Button 2", icon = Icons.Default.Close)
+          Row( horizontalArrangement = Arrangement.spacedBy(16.dp) ) {
+            MyButton(text = "Button 1", icon = Icons.Default.Check)
+            MyButton(text = "Button 2", icon = Icons.Default.Close)
+          }
         }
       }
     }
