@@ -49,8 +49,6 @@ fun App() {
           style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold)
         )
 
-        items.forEachIndexed { index, item -> TodoItem(item) { items.removeAt(index) } }
-
         TextField(
           value = input,
           onValueChange = { value -> run {
@@ -66,6 +64,8 @@ fun App() {
           } },
           label = { Text("Enter new TODO") }
         )
+
+        items.forEachIndexed { index, item -> TodoItem(item) { items.removeAt(index) } }
       }
     }
   }
