@@ -19,15 +19,16 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 
 @Composable
-fun MyButton(text: String, icon: ImageVector) {
-  Button(
-    onClick = { /* Handle button click */ },
-    modifier = Modifier
-      .height(48.dp)
+fun TodoItem(text: String, onRemove: () -> Unit) {
+  Row(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalArrangement = Arrangement.spacedBy(8.dp),
+    verticalAlignment = Alignment.CenterVertically
   ) {
-    Icon(imageVector = icon, contentDescription = null)
-    Spacer(modifier = Modifier.width(8.dp))
-    Text(text = text)
+    Button(onRemove) {
+      Icon( imageVector = Icons.Default.Close, contentDescription = null )
+    }
+    Text( text, style = MaterialTheme.typography.body1 )
   }
 }
 
@@ -50,15 +51,7 @@ fun App() {
           style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold)
         )
 
-        Row(
-          modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.Center
-        ) {
-          Row( horizontalArrangement = Arrangement.spacedBy(16.dp) ) {
-            MyButton(text = "Button 1", icon = Icons.Default.Check)
-            MyButton(text = "Button 2", icon = Icons.Default.Close)
-          }
-        }
+        TodoItem("Laundry", {})
       }
     }
   }
